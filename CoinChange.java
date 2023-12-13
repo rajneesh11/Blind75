@@ -21,28 +21,28 @@ Example 3:
 Input: coins = [1], amount = 0
 Output: 0
  */
+
+import java.util.Arrays;
+
 public class CoinChange {
     static int coinChange(int[] coins, int amount) {
-        int[][] T = new int[coins.length][amount + 1];
+        int[] dp = new int[amount + 1];
 
-        for (int c = 0; c < coins.length ; c++) {
-            for (int a = 1; a <= amount; a++) {
-                if (coins[c] > a) {
-                    T[c][a] = T[c - 1][a];
-                } else {
-                    if (c == 0) {
-                        T[c][a] = 1 + T[c][a - coins[c]];
-                    } else
-                        T[c][a] = Math.min(T[c - 1][a], 1 + T[c][a - coins[c]]);
+        Arrays.fill(dp, amount + 1);
 
-                }
+        dp[0] = 0;
+
+        for (int coin : coins) {
+            for (int i = coin; i <= amount; i++) {
+                dp[i] = Math.min(dp[i], dp[i - coin] + 1);
             }
         }
-        return T[coins.length - 1][amount];
+
+        return dp[amount] > amount ? -1 : dp[amount];
     }
 
     public static void main(String[] args) {
-        int[] coins = { 1,2,5 };
+        int[] coins = { 1 };
         int amount = 11;
         System.out.println(coinChange(coins, amount));
     }
