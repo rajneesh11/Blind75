@@ -21,9 +21,7 @@ Output: true
 Explanation: Notice that the path visits the origin twice.
  */
 
-import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class PathCrossing {
